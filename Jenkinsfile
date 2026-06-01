@@ -5,25 +5,27 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/kumar5102005/jenkins-devops-task.git'
+                git branch: 'main',
+                    url: 'https://github.com/kumar5102005/jenkins-devops-task.git',
+                    credentialsId: '62800e34-b0ae-4186-8d24-6c5009ccc8d4'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t jenkins-devops-app .'
+                bat 'docker build -t jenkins-devops-app .'
             }
         }
 
         stage('Run Container') {
             steps {
-                sh 'docker run -d -p 3000:3000 jenkins-devops-app'
+                bat 'docker run -d -p 3000:3000 jenkins-devops-app'
             }
         }
     }
